@@ -3,7 +3,7 @@ terraform {
 
   /*  backend "s3" {
     region  = "us-east-2"
-    profile = "default" # using profile instead of aws access keys
+    profile = var.profile # using profile instead of aws access keys
     bucket  = var.tf_state_s3_bucket
     key     = var.tf_state_s3_key
     dynamodb_table = var.tf_state_lock_tbl_name
