@@ -6,7 +6,7 @@ The following diagram shows the core resources that we will be creating in AWS.
 
 ![Architecture](assets/EKS.png "EKS with VPC, ALB, RDS")
 
-A VPC will be created with three Public Subnets and three Private Subnets in three different Availability Zones. Traffic from Private Subnets will route through the NAT Gateway and traffic from Public Subnets will route through the Internet Gateway.
+A VPC will be created with 2 public subnets and 2 private Subnets in 2 different Availability Zones. Traffic from Private Subnets will route through the NAT Gateway and traffic from Public Subnets will route through the Internet Gateway.
 
 Kubernetes Cluster Nodes will be created as part of Auto-Scaling groups and will reside in Private Subnets. The Application Load balancer will be created in the Public Subnets.
 
@@ -22,13 +22,7 @@ Before we proceed and provision EKS Cluster using Terraform, there are a few com
 
     4. helm
 
-### Assumptions
-
-The following details makes the following assumptions.
-
-    You have aws cli configured  - aws configure
-
-    You have created s3 bucket that will act as the backend of the project (optional as backend could be local).
+We assume that the aws cli configured - aws configure
 
 ## Quick Setup
 
@@ -45,7 +39,7 @@ Update the `variables.tf` profile and region variables if you are not using the 
 ### Github Actions access to EKS using
 
 In order for the Github Actions account to deploy apps on the eks cluster, authenticaction and authorization must be configured in the cluster.
-The authenticaction is handled by having a user created in eks and having it being mapped to an IAM identity. This is already done using 'aws_auth_roles' map in the 'vpc' module.
+The authenticaction is handled by having a user created in eks and having it mapped to an IAM identity. This is already done using 'aws_auth_roles' map in the 'vpc' module.
 
     ```
     module "vpc" {
@@ -64,9 +58,7 @@ The authenticaction is handled by having a user created in eks and having it bei
     ```
 
 kindly set the value for var.rolearn with your github actions aws role in the `variables.tf` file as environment variable TF_VAR_rolearn. The user default name is admin_github_oicd and its related authorization can be found in `modules/eks-cluster/gha_aws_oicd_k8s-role.tf`.
-If there is no role to add, disable adding role to the configmap by commenting out the following field in `modules/eks-cluster/main.tf`
-
-    manage_aws_auth_configmap = true
+If there is no role to add, disable adding role to the configmap by commenting out the following field in `modules/eks-cluster/main.tf` (#manage_aws_auth_configmap = true)
 
 ## Running the project
 
@@ -302,8 +294,9 @@ Elastic Kubernetes Service (EKS) is a managed Kubernetes service provided by AWS
 The above method is just one of the method that can be used to create the EKS clusters and there can be a variety of methods;
 
 Throughout the following setup, I referenced heavily from the following source:
-[1] Skanyi terraform-projects repo - https://github.com/Skanyi/terraform-projects
-[2] EKS connectivity to RDS using IRSA - https://dev.to/stack-labs/securing-the-connectivity-between-amazon-eks-and-amazon-rds-part-5-1coh
-[3] IAM Role for Service Accounts in EKS - https://github.com/terraform-aws-modules/terraform-aws-iam/tree/master/examples/iam-role-for-service-accounts-eks<br>
-[4] AWS VPC Terraform module - https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/latest<br>
-[5] AWS EKS Terraform module - https://registry.terraform.io/modules/terraform-aws-modules/eks/aws/latest<br>
+
+- [1] Skanyi terraform-projects repo - https://github.com/Skanyi/terraform-projects
+- [2] EKS connectivity to RDS using IRSA - https://dev.to/stack-labs/securing-the-connectivity-between-amazon-eks-and-amazon-rds-part-5-1coh
+- [3] IAM Role for Service Accounts in EKS - https://github.com/terraform-aws-modules/terraform-aws-iam/tree/master/examples/iam-role-for-service-accounts-eks<br>
+- [4] AWS VPC Terraform module - https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/latest<br>
+- [5] AWS EKS Terraform module - https://registry.terraform.io/modules/terraform-aws-modules/eks/aws/latest<br>
