@@ -38,7 +38,7 @@ resource "aws_security_group" "rds_sg" {
     from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = var.private_subnets
   }
 }
 
@@ -120,7 +120,7 @@ resource "aws_db_parameter_group" "my_db_pmg" {
 }
 
 resource "aws_iam_role" "rds_monitoring_role" {
-  name = "arthur-rds-monitoring-role"
+  name = "rds-monitoring-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
