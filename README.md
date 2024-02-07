@@ -293,7 +293,7 @@ If you get errors deleting the resources, remove the .terraform folder and destr
 Elastic Kubernetes Service (EKS) is a managed Kubernetes service provided by AWS, which takes the complexity and overhead out of provisioning and optimizing a Kubernetes Cluster for development teams.
 The above method is just one of the method that can be used to create the EKS clusters and there can be a variety of methods;
 
-Throughout the following setup, I referenced heavily from the following source:
+Throughout the following setup, I was inspired by from the following sources:
 
 - [1] Skanyi terraform-projects repo - https://github.com/Skanyi/terraform-projects
 - [2] EKS connectivity to RDS using IRSA - https://dev.to/stack-labs/securing-the-connectivity-between-amazon-eks-and-amazon-rds-part-5-1coh
