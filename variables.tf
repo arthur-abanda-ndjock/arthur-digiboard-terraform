@@ -4,7 +4,7 @@
 
 variable "tf_state_s3_bucket" {
   type    = string
-  default = "terraform-infra"
+  default = "terraform-infra-bckt"
 }
 
 variable "tf_state_s3_key" {
@@ -45,7 +45,6 @@ variable "cluster_name" {
 
 variable "rolearn" {
   description = "Add admin role to the aws-auth configmap"
-  default     = "my-default-role-value"
 }
 
 ################################################################################

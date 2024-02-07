@@ -9,12 +9,12 @@ variable "main-region" {
   type = string
 }
 variable "vpc_id" {
-  description = "VPC ID which EKS cluster is deployed in"
+  description = "VPC ID which RDS cluster is deployed in"
   type        = string
 }
 
 variable "private_subnets" {
-  description = "VPC Private Subnets which EKS cluster is deployed in"
+  description = "VPC Private Subnets which RDS cluster is deployed in"
   type        = list(any)
 }
 

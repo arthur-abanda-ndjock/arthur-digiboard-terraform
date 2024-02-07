@@ -67,14 +67,9 @@ module "eks" {
   #create_aws_auth_configmap = true
 
   aws_auth_roles = [
-    {
-      rolearn  = var.rolearn
-      username = "skanyi"
-      groups   = ["system:masters"]
-    },
     # eks iamidentitymapping for github actions oicd user
     {
-      rolearn  = "arn:aws:iam::755840619199:role/github-to-aws-oicd"
+      rolearn  = var.rolearn
       username = "admin_github_oicd"
       groups   = ["system:bootstrappers", "system:nodes"]
     },
